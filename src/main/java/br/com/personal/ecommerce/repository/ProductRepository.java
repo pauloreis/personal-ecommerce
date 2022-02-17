@@ -1,17 +1,8 @@
 package br.com.personal.ecommerce.repository;
 
 import br.com.personal.ecommerce.domain.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-public interface ProductRepository {
-    List<Product> listAll();
-
-    Product findById(Long id);
-
-    Product save(Product product);
-
-    void delete(Long id);
-
-    void replace(Product product);
 }

@@ -1,6 +1,8 @@
 package br.com.personal.ecommerce.controller;
 
 import br.com.personal.ecommerce.domain.Product;
+import br.com.personal.ecommerce.dto.ProductPostDto;
+import br.com.personal.ecommerce.dto.ProductPutDto;
 import br.com.personal.ecommerce.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,8 +29,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product product){
-        return new ResponseEntity(productService.save(product), HttpStatus.CREATED);
+    public ResponseEntity<Product> save(@RequestBody ProductPostDto productPostDto){
+        return new ResponseEntity(productService.save(productPostDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -38,8 +40,8 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Product product){
-        productService.replace(product);
+    public ResponseEntity<Void> replace(@RequestBody ProductPutDto productPutDto){
+        productService.replace(productPutDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
