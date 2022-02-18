@@ -7,10 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -23,8 +21,12 @@ public class Product {
     private Long id;
     private UUID uuid;
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private ProductCategory category;
     private Double prize;
+    private LocalDateTime creatAt;
+    private LocalDateTime updateAt;
 
     public static Product converter(ProductPostDto productPostDto){
         return Product.builder()
@@ -32,6 +34,8 @@ public class Product {
                 .name(productPostDto.getName())
                 .category(productPostDto.getCategory())
                 .prize(productPostDto.getPrize())
+                .creatAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .build();
     }
 
@@ -42,6 +46,7 @@ public class Product {
                 .name(productPutDto.getName())
                 .category(productPutDto.getCategory())
                 .prize(productPutDto.getPrize())
+                .updateAt(LocalDateTime.now())
                 .build();
     }
 }
