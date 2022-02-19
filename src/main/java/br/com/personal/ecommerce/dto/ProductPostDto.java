@@ -1,6 +1,5 @@
 package br.com.personal.ecommerce.dto;
 
-import br.com.personal.ecommerce.domain.ProductCategory;
 import lombok.Data;
 
 import java.util.UUID;
@@ -9,6 +8,6 @@ import java.util.UUID;
 public class ProductPostDto {
     private UUID uuid = UUID.randomUUID();
     private String name;
-    private ProductCategory category;
+    private String category;
     private Double prize;
 }

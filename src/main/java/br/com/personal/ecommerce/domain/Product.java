@@ -14,25 +14,26 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity()
+@Table(name = "products")
 @Builder
 public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
     private String name;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private ProductCategory category;
+
     private Double prize;
-    private LocalDateTime creatAt;
-    private LocalDateTime updateAt;
+    private LocalDateTime creatAt = LocalDateTime.now();
+    private LocalDateTime updateAt = LocalDateTime.now();
 
     public static Product converter(ProductPostDto productPostDto){
         return Product.builder()
                 .uuid(productPostDto.getUuid())
                 .name(productPostDto.getName())
-                .category(productPostDto.getCategory())
                 .prize(productPostDto.getPrize())
                 .creatAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
