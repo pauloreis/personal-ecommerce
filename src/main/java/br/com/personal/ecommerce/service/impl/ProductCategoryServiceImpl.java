@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -31,5 +32,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public ProductCategory save(ProductCategory productCategory) {
         return productCategoryRepository.save(productCategory);
+    }
+
+    @Override
+    public ProductCategory findByName(String name) {
+        return productCategoryRepository.findByName(name).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "ProductCategory not found.")
+        );
     }
 }

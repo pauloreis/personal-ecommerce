@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(ProductPostDto productPostDto) {
-        ProductCategory category = productCategoryRepository.findById(Long.valueOf(productPostDto.getCategory()))
+        ProductCategory category = productCategoryRepository.findByName(productPostDto.getCategory())
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "ProductCategory not found.")
                 );

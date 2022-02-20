@@ -10,4 +10,6 @@ public interface ProductCategoryService {
     ProductCategory findById(Long id);
 
     ProductCategory save(ProductCategory productCategory);
+
+    ProductCategory findByName(String name);
 }

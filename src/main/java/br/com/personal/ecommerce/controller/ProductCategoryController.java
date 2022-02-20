@@ -18,13 +18,18 @@ public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> list() {
+    public ResponseEntity<List<ProductCategory>> list() {
         return new ResponseEntity(productCategoryService.listAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductCategory> findById(@PathVariable Long id) {
         return new ResponseEntity(productCategoryService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<ProductCategory> findByName(@RequestParam String name){
+        return new ResponseEntity<>(productCategoryService.findByName(name), HttpStatus.OK);
     }
 
     @PostMapping
