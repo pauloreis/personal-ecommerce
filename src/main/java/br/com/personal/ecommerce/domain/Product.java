@@ -20,14 +20,23 @@ import java.util.UUID;
 public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private UUID uuid = UUID.randomUUID();
+
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
     private ProductCategory category;
 
+    @Column(nullable = false)
     private Double prize;
+
+    @Column(nullable = false)
     private LocalDateTime creatAt = LocalDateTime.now();
+
+    @Column(nullable = false)
     private LocalDateTime updateAt = LocalDateTime.now();
 
     public static Product converter(ProductPostDto productPostDto){

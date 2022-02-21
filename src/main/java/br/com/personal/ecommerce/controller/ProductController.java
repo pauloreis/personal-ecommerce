@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody ProductPostDto productPostDto){
+    public ResponseEntity<Product> save(@RequestBody @Valid ProductPostDto productPostDto){
         return new ResponseEntity(productService.save(productPostDto), HttpStatus.CREATED);
     }
 
@@ -40,7 +41,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody ProductPutDto productPutDto){
+    public ResponseEntity<Void> replace(@RequestBody @Valid ProductPutDto productPutDto){
         productService.replace(productPutDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,12 +1,12 @@
 package br.com.personal.ecommerce.dto;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class CustomExceptionDto {
-    private Integer statusCode;
-    private String title;
-    private String message;
+    protected Integer statusCode;
+    protected String title;
+    protected String message;
 }

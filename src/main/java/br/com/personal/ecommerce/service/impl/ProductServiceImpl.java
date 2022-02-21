@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
+    @Transactional
     @Override
     public Product save(ProductPostDto productPostDto) {
         ProductCategory category = productCategoryRepository.findByName(productPostDto.getCategory())
@@ -45,11 +47,13 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         productRepository.delete(this.findById(id));
     }
 
+    @Transactional
     @Override
     public void replace(ProductPutDto productPutDto) {
         Product product = this.findById(productPutDto.getId());
