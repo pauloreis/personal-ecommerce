@@ -11,4 +11,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      show-sql: true
+    show-sql: true
+  data:
+    web:
+      pageable:
+        default-page-size: 1
+
+loggin:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

@@ -8,13 +8,13 @@ import br.com.personal.ecommerce.repository.ProductCategoryRepository;
 import br.com.personal.ecommerce.repository.ProductRepository;
 import br.com.personal.ecommerce.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,8 +24,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductCategoryRepository productCategoryRepository;
 
     @Override
-    public List<Product> listAll() {
-        return productRepository.findAll();
+    public Page<Product> listAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     @Override
