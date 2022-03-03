@@ -9,7 +9,11 @@ public interface ProductCategoryService {
 
     ProductCategory findById(Long id);
 
+    ProductCategory findByName(String name);
+
     ProductCategory save(ProductCategory productCategory);
 
-    ProductCategory findByName(String name);
+    void replace(ProductCategory productCategory);
+
+    void delete(Long id);
 }

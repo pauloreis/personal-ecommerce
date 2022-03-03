@@ -37,4 +37,16 @@ public class ProductCategoryController {
     public ResponseEntity<ProductCategory> save(@RequestBody @Valid ProductCategory productCategory){
         return new ResponseEntity(productCategoryService.save(productCategory), HttpStatus.CREATED);
     }
+
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody @Valid ProductCategory productCategory){
+        productCategoryService.replace(productCategory);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        productCategoryService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
