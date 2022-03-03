@@ -34,7 +34,7 @@ public class ProductCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody @Valid ProductCategory productCategory){
+    public ResponseEntity<ProductCategory> save(@RequestBody @Valid ProductCategory productCategory){
         return new ResponseEntity(productCategoryService.save(productCategory), HttpStatus.CREATED);
     }
 }

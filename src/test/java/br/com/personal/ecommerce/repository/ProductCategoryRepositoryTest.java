@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.validation.ConstraintViolationException;
-import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static br.com.personal.ecommerce.util.ProductCategoryCreator.createProductCategoryTobeSaved;
 
 @DataJpaTest
 @DisplayName("Tests for ProductCategory Repository")
@@ -21,7 +22,7 @@ class ProductCategoryRepositoryTest {
     @Test
     @DisplayName("Save ProductCategory when successful")
     void save_ProducCategory_WhenSuccessful(){
-        ProductCategory productCategoryToBeSaved = createProductCategory();
+        ProductCategory productCategoryToBeSaved = createProductCategoryTobeSaved();
         ProductCategory productCategorySaved = this.productCategoryRepository.save(productCategoryToBeSaved);
 
         Assertions.assertThat(productCategorySaved).isNotNull();
@@ -32,7 +33,7 @@ class ProductCategoryRepositoryTest {
     @Test
     @DisplayName("Update ProductCategory when successful")
     void update_ProducCategory_WhenSuccessful(){
-        ProductCategory productCategoryToBeSaved = createProductCategory();
+        ProductCategory productCategoryToBeSaved = createProductCategoryTobeSaved();
         ProductCategory productCategorySaved = this.productCategoryRepository.save(productCategoryToBeSaved);
 
         productCategorySaved.setName("Phone");
@@ -46,7 +47,7 @@ class ProductCategoryRepositoryTest {
     @Test
     @DisplayName("Delete ProductCategory when successful")
     void delete_ProducCategory_WhenSuccessful(){
-        ProductCategory productCategoryToBeSaved = createProductCategory();
+        ProductCategory productCategoryToBeSaved = createProductCategoryTobeSaved();
         ProductCategory productCategorySaved = this.productCategoryRepository.save(productCategoryToBeSaved);
 
         this.productCategoryRepository.delete(productCategorySaved);
@@ -58,7 +59,7 @@ class ProductCategoryRepositoryTest {
     @Test
     @DisplayName("Find By Name Return list of ProductCategory when successful")
     void findByName_ReturnListOfProducCategory_WhenSuccessful(){
-        ProductCategory productCategoryToBeSaved = createProductCategory();
+        ProductCategory productCategoryToBeSaved = createProductCategoryTobeSaved();
         ProductCategory productCategorySaved = this.productCategoryRepository.save(productCategoryToBeSaved);
 
         Optional<ProductCategory> productCategoryOptional = this.productCategoryRepository.findByName(productCategorySaved.getName());
@@ -77,13 +78,5 @@ class ProductCategoryRepositoryTest {
         Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
                 .isThrownBy(() -> this.productCategoryRepository.save(productCategory))
                 .withMessageContaining("Name cannot empty");
-    }
-
-    private ProductCategory createProductCategory(){
-        return ProductCategory.builder()
-                .name("Eletronic")
-                .creatAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
-                .build();
     }
 }
