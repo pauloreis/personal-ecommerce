@@ -2,7 +2,6 @@ package br.com.personal.ecommerce.controller;
 
 import br.com.personal.ecommerce.domain.ProductCategory;
 import br.com.personal.ecommerce.service.ProductCategoryService;
-import br.com.personal.ecommerce.service.impl.ProductCategoryServiceImpl;
 import br.com.personal.ecommerce.util.ProductCategoryCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +12,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -39,6 +38,8 @@ class ProductCategoryControllerTest {
                 .thenReturn(ProductCategoryCreator.createProductCategoryValid());
         BDDMockito.when(productCategoryServiceMock.save(ArgumentMatchers.any(ProductCategory.class)))
                 .thenReturn(ProductCategoryCreator.createProductCategoryValid());
+        BDDMockito.doNothing().when(productCategoryServiceMock).replace(ArgumentMatchers.any(ProductCategory.class));
+        BDDMockito.doNothing().when(productCategoryServiceMock).delete(ArgumentMatchers.anyLong());
     }
 
     @Test
@@ -76,6 +77,30 @@ class ProductCategoryControllerTest {
         ProductCategory productCategory = productCategoryController.save(productCategoryTobeSaved).getBody();
         Assertions.assertThat(productCategory).isNotNull();
         Assertions.assertThat(productCategory.getName()).isEqualTo(productCategoryTobeSaved.getName());
+    }
+
+    @Test
+    @DisplayName("replace update Product Category When Successful")
+    void replace_UpdateProductCategory_WhenSuccessful(){
+        Assertions.assertThatCode( () ->
+                        productCategoryController.replace(ProductCategoryCreator.createProductCategoryUpdated()))
+                .doesNotThrowAnyException();
+
+        ResponseEntity<Void> entity = productCategoryController.replace(ProductCategoryCreator.createProductCategoryUpdated());
+        Assertions.assertThat(entity).isNotNull();
+        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    @DisplayName("delete Remove Product Category When Successful")
+    void delete_RemoveProductCategory_WhenSuccessful(){
+        Assertions.assertThatCode( () ->
+                        productCategoryController.delete(1L))
+                .doesNotThrowAnyException();
+
+        ResponseEntity<Void> entity = productCategoryController.delete(1L);
+        Assertions.assertThat(entity).isNotNull();
+        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
     //Not Successful cases
