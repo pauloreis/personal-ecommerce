@@ -30,8 +30,8 @@ public class Product {
     @ManyToOne
     private ProductCategory category;
 
-    @Column(nullable = false)
-    private Double prize;
+    @ManyToOne
+    private ProductPrize productPrize;
 
     @Column(nullable = false)
     private LocalDateTime creatAt = LocalDateTime.now();
@@ -43,7 +43,6 @@ public class Product {
         return Product.builder()
                 .uuid(productPostDto.getUuid())
                 .name(productPostDto.getName())
-                .prize(productPostDto.getPrize())
                 .creatAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
                 .build();
@@ -55,7 +54,6 @@ public class Product {
                 .uuid(productPutDto.getUuid())
                 .name(productPutDto.getName())
                 .category(productPutDto.getCategory())
-                .prize(productPutDto.getPrize())
                 .updateAt(LocalDateTime.now())
                 .build();
     }

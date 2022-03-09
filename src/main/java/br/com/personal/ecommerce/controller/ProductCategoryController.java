@@ -1,6 +1,5 @@
 package br.com.personal.ecommerce.controller;
 
-import br.com.personal.ecommerce.domain.Product;
 import br.com.personal.ecommerce.domain.ProductCategory;
 import br.com.personal.ecommerce.service.ProductCategoryService;
 import lombok.RequiredArgsConstructor;

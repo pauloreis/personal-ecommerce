@@ -7,21 +7,27 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "products_category")
+@Table(name = "product_prize")
 @Builder
-public class ProductCategory {
+public class ProductPrize {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    @NotEmpty(message = "Name cannot empty")
-    private String name;
+    @NotNull(message = "Prize cannot be null")
+    private Double prize;
+
+    @Column(nullable = false)
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
 
     @Column(nullable = false)
     private LocalDateTime creatAt = LocalDateTime.now();
