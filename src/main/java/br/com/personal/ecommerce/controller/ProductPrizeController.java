@@ -25,4 +25,10 @@ public class ProductPrizeController {
     public ResponseEntity<ProductPrize> save(@RequestBody @Valid ProductPrize productPrize){
         return new ResponseEntity(productPrizeService.save(productPrize), HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        productPrizeService.replace(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -40,4 +40,15 @@ class ProductPrizeRepositoryTest {
         Assertions.assertThat(productPrize).isPresent();
         Assertions.assertThat(productPrize).contains(productPrizeSaved);
     }
+
+    @Test
+    @DisplayName("Delete Set End Date When successful")
+    void delete_SetEndDate_WhenSuccessful(){
+        ProductPrize productPrizeToBeSaved = ProductPrizeCreator.createProductPrizeInvalid();
+        ProductPrize productPrizeSaved = this.productPrizeRepository.save(productPrizeToBeSaved);
+
+        Optional<ProductPrize> productPrize = this.productPrizeRepository.findById(productPrizeSaved.getId());
+
+        Assertions.assertThat(productPrize.get().getEndDate()).isNotNull();
+    }
 }

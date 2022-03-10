@@ -28,6 +28,8 @@ public class ProductPrizeCreator {
                 .prize(900.00)
                 .startDate(LocalDateTime.now().minusDays(1L))
                 .endDate(LocalDateTime.now())
+                .creatAt(LocalDateTime.now().minusDays(1L))
+                .updateAt(LocalDateTime.now())
                 .build();
     }
 }

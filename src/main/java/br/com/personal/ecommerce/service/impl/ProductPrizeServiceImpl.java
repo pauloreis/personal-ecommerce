@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ProductPrizeServiceImpl implements ProductPrizeService {
@@ -25,5 +28,12 @@ public class ProductPrizeServiceImpl implements ProductPrizeService {
                 () -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "ProductPriz not found.")
         );
+    }
+
+    @Override
+    public void replace(Long id) {
+        ProductPrize productPrize = productPrizeRepository.findById(id).get();
+        productPrize.setEndDate(LocalDateTime.now());
+        productPrizeRepository.save(productPrize);
     }
 }

@@ -6,4 +6,6 @@ public interface ProductPrizeService {
     ProductPrize save(ProductPrize productPrize);
 
     ProductPrize findById(Long id);
+
+    void replace(Long id);
 }
