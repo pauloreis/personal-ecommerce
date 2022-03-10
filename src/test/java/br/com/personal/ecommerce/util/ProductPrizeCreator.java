@@ -19,6 +19,8 @@ public class ProductPrizeCreator {
                 .id(1L)
                 .prize(900.00)
                 .startDate(LocalDateTime.now())
+                .creatAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .build();
     }
 
