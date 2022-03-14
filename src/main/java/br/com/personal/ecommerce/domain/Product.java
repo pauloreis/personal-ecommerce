@@ -39,21 +39,25 @@ public class Product {
     @Column(nullable = false)
     private LocalDateTime updateAt = LocalDateTime.now();
 
-    public static Product converter(ProductPostDto productPostDto){
+    public static Product converter(ProductPostDto productPostDto, ProductCategory category, ProductPrize prize){
         return Product.builder()
-                .uuid(productPostDto.getUuid())
+                .uuid(UUID.randomUUID())
                 .name(productPostDto.getName())
+                .category(category)
+                .productPrize(prize)
                 .creatAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
                 .build();
     }
 
-    public static Product converter(ProductPutDto productPutDto, Long id){
+    public static Product converter(ProductPutDto productPutDto, Product product){
         return Product.builder()
-                .id(id)
-                .uuid(productPutDto.getUuid())
+                .id(product.getId())
+                .uuid(UUID.fromString(productPutDto.getUuid()))
                 .name(productPutDto.getName())
-                .category(productPutDto.getCategory())
+                .category(product.getCategory())
+                .productPrize(product.getProductPrize())
+                .creatAt(product.getCreatAt())
                 .updateAt(LocalDateTime.now())
                 .build();
     }

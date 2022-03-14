@@ -2,9 +2,11 @@ package br.com.personal.ecommerce.service.impl;
 
 import br.com.personal.ecommerce.domain.Product;
 import br.com.personal.ecommerce.domain.ProductCategory;
+import br.com.personal.ecommerce.domain.ProductPrize;
 import br.com.personal.ecommerce.dto.ProductPostDto;
 import br.com.personal.ecommerce.dto.ProductPutDto;
 import br.com.personal.ecommerce.repository.ProductCategoryRepository;
+import br.com.personal.ecommerce.repository.ProductPrizeRepository;
 import br.com.personal.ecommerce.repository.ProductRepository;
 import br.com.personal.ecommerce.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private final ProductPrizeRepository productPrizeRepository;
 
     @Override
     public Page<Product> listAll(Pageable pageable) {
@@ -42,8 +45,13 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "ProductCategory not found.")
                 );
-        Product product = Product.converter(productPostDto);
-        product.setCategory(category);
+
+        ProductPrize prize = productPrizeRepository.findById(productPostDto.getPrizeId())
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "ProductPrize not found.")
+                );
+
+        Product product = Product.converter(productPostDto, category, prize);
         return productRepository.save(product);
     }
 
@@ -57,6 +65,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void replace(ProductPutDto productPutDto) {
         Product product = this.findById(productPutDto.getId());
-        productRepository.save(Product.converter(productPutDto, product.getId()));
+
+        ProductCategory category = productCategoryRepository.findByName(productPutDto.getCategory())
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "ProductCategory not found.")
+                );
+
+        ProductPrize prize = productPrizeRepository.findById(productPutDto.getPrizeId())
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "ProductPrize not found.")
+                );
+
+        product.setCategory(category);
+        product.setProductPrize(prize);
+
+        productRepository.save(Product.converter(productPutDto, product));
     }
 }
